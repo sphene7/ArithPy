@@ -1,4 +1,4 @@
-
+from collections import defaultdict
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -46,6 +46,32 @@ class Solution:
 
             dfs(n,k,0,path)
             return ''.join([str(num) for num in path])
+
+
+        def minWindow(self, s: str, t: str) -> str:   #76 To change
+            if len(s)<len(t):
+                return ""
+            hs,ht=defaultdict(int),defaultdict(int)
+            for char in t:
+                ht[char]+=1
+
+            res = ""
+            left,right=0,0
+
+            cnt=0
+            while right<len(s):
+                hs[s[right]]+=1
+                if hs[s[right]]<=hs[s[right]]:
+                    cnt+=1
+                while left<right and hs[s[left]]>ht[s[left]]:
+                    hs[s[left]]-=1
+                    left+=1
+                if cnt==len(t):
+                    if not res or right-left+1<len(res):
+                        res=s[left:right+1]
+                right+=1
+            return res
+
 
     # def getPermutation(self, n: int, k: int) -> str:
     #     def dfs(n, k, index, path):
