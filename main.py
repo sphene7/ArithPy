@@ -1,10 +1,214 @@
 from collections import defaultdict
+from typing import List, Optional
+
+INT_MAX=2**32-1
+INT_MIN=-2**32
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+# class Automaton:
+#     def isMatch(self, s: str, p: str) -> bool:
+#
+#     def __init__(self):
+#         self.state = 'start'
+#         self.sign = 1
+#         self.ans = 0
+#         self.table = {
+#             'start': ['start', 'signed', 'in_number', 'end'],
+#             'signed': ['end', 'end', 'in_number', 'end'],
+#             'in_number': ['end', 'end', 'in_number', 'end'],
+#             'end': ['end', 'end', 'end', 'end'],
+#         }
+#
+#     def get_col(self, c):
+#         if c.isspace():
+#             return 0
+#         if c == '+' or c == '-':
+#             return 1
+#         if c.isdigit():
+#             return 2
+#         return 3
+#
+#     def get(self, c):
+#         self.state = self.table[self.state][self.get_col(c)]
+#         if self.state == 'in_number':
+#             self.ans = self.ans * 10 + int(c)
+#             self.ans = min(self.ans, INT_MAX) if self.sign == 1 else min(self.ans, -INT_MIN)
+#         elif self.state == 'signed':
+#             self.sign = 1 if c == '+' else -1
+
 class Solution:
+
+    def isMatch(self, s: str, p: str) -> bool:    ######10
+        len_s=len(s);len_p=len(p)
+        #dp=[False*(len_p+1) for _ in range(len_s+1)]
+        dp=[[False]*(len_p+1) for _ in range(len_s+1)]
+        #为什么是+1呢？
+        dp[0][0]=True
+        for j in range(1,len_p+1):   #只是第一P的情况
+            if p[j-1]=='*':
+                dp[0][j]=dp[0][j-2]
+        for i in range(1,len_s+1):
+            for j in range (1,len_p+1):
+                if p[j-1] in {s[i-1],'.'}:
+                    #dp[i][j]=dp[i][j-2]
+                    dp[i][j]=dp[i-1][j-1]
+                elif p[j-1]=='*':       #这几行？？？？？
+                    if p[j-2] in {s[i-1],'.'}:
+                        dp[i][j]=dp[i][j-2]or dp[i-1][j]
+                        #dp[i][j]=dp[i][j-2] or dp
+                    else:
+                        dp[i][j]=dp[i][j-2]
+        return dp[len_s][len_p]
+
+                    #if p[j-2]=='.'
+
+    # def myAtoi(self, str: str) -> int:
+    #     automaton = Automaton()
+    #     for c in str:
+    #         automaton.get(c)
+    #     return automaton.sign * automaton.ans
+
+
+    # def reverse(self, x: int) -> int:     ###### 7
+    #     str_x=str(x)
+    #     #if len(str_x)
+    #     if str_x[0]!="-":
+    #         str_x=str_x[::-1]
+    #     else:
+    #         #str_x[0]="-"    //不能这么赋值
+    #         #str 也不能append
+    #         a=str_x[:0:-1]      #这是消去第一位，惊喜吗^-^
+    #         str_x="-"+a
+    #     int_x=int(str_x)
+    #     if -2147483648 < int_x < 2147483647:return int_x
+    #     else: return 0
+
+    # def convert(self, s: str, numRows: int) -> str:
+    #     if numRows<2:return s
+    #     #res=[""for _ in range(s)]
+    #     res=[""for _ in range(numRows)]
+    #     i,flag=0,-1
+    #     for c in s:
+    #         res[i]+=c
+    #         if i==0 or i==numRows-1:
+    #             flag=-flag
+    #         i+=flag
+    #     return "".join(res)
+
+    # def longestPalindrome(self, s: str) -> str:  ###5
+    #     n=len(s)
+    #     if n<2:
+    #         return s
+    #     max_l=1;begin=0
+    #     dp=[[False]*n for _ in range(n)]
+    #     for i in range(n):
+    #         dp[i][i] =True
+    #     for L in range(2,n+1):   #下标
+    #         for i in range(n):
+    #             j=L+i-1
+    #             if j>=n:
+    #                 break
+    #             if s[i]!=s[j]:
+    #                 dp[i][j]=False
+    #             else:
+    #                 if j-i<3:
+    #                     dp[i][j]=True
+    #                 else:
+    #                     dp[i][j]=dp[i+1][j-1]
+    #             if dp[i][j] and j-i+1>max_l:   #因为第一个也算一个元素呀
+    #                 max_l=j-i+1
+    #                 begin=i
+    #     return s[begin:begin+max_l]
+
+    # def lengthOfLongestSubstring(self, s: str) -> int:   #####03
+    #     if not s:
+    #         return 0
+    #     left=0
+    #     lookup=set()
+    #     n=len(s)
+    #     max_len=0;cur_len=0
+    #     for i in range( n):
+    #         cur_len+=1
+    #         while s[i] in lookup:
+    #             lookup.remove(s[left])   #字符串呀
+    #             left+=1
+    #             cur_len-=1
+    #         if cur_len>max_len:
+    #             max_len=cur_len
+    #         lookup.add(s[i])
+    #     return max_len
+
+    #     def addTwoNumbers1(self, l1, l2):
+    #         re = ListNode(0)
+    #         r = re
+    #         carry = 0
+    #         while (l1 or l2):
+    #             x = l1.val if l1 else 0
+    #             y = l2.val if l2 else 0
+    #             s = carry + x + y
+    #             carry = s // 10
+    #             r.next = ListNode(s % 10)
+    #             r = r.next
+    #             if (l1 != None): l1 = l1.next
+    #             if (l2 != None): l2 = l2.next
+    #         if (carry > 0):
+    #             r.next = ListNode(1)
+    #         return re.next
+    #     def addTwoNumbers(self, l1, l2):  #####2 ?
+    #         re = ListNode(0)
+    #         r = re
+    #         TmpD = 0
+    #         while (l1 or l2):
+    #             a = l1.val if l1 else 0
+    #             b = l2.val if l2 else 0
+    #             Tmp = TmpD + a + b
+    #             TmpD = Tmp // 10
+    #             r.next = ListNode(Tmp % 10)
+    #             r = r.next
+    #         if (TmpD > 0):
+    #             r.next = ListNode(1)
+    #         return re.next
+
+    # def twoSum(self, nums: List[int], target: int) -> List[int]:   ######1
+    #     n=len(nums)
+    #     #for i in range[n]:
+    #     for i in range(n):
+    #         #for j in range[n-i]
+    #         for j in range(i+1,n):
+    #             if nums[i]+nums[j]==target:
+    #                 #-> List[int]:
+    #                 return [i,j]
+    #     return []
+
+
+    def twoSum(self, nums: List[int], target: int) -> List[int]:  #####1 ->Hash
+         hashtable=dict()
+         for i,num in enumerate(nums):
+             if target-num in hashtable:
+                 return[hashtable[target-num],i]
+             #hashtable[num]=i
+             #hashtable[num[i]]=i
+             hashtable[nums[i]]=i
+         return []
+
+    #     hashtable=dict()
+    #     for i,num in enumerate(nums):  #枚举
+    #         if target-num in hashtable:
+    #             return [hashtable[target-num],i]  #返回下标呀
+    #         hashtable[nums[i]]=i   #返回下标
+    #     return []
+
+
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         if not p and not q:
             return True
@@ -104,10 +308,15 @@ class Solution:
 
 
 
+
+
 if __name__ == '__main__':
-    a1=TreeNode([1,2,3])
-    a2= TreeNode([1, 2, 3])
-    print(Solution().isSameTree(a1,a2))
+    # a1=TreeNode([1,2,3])
+    # a2= TreeNode([1, 2, 3])
+    # print(Solution().isSameTree(a1,a2))
+    #print(Solution.convert("PAYPALISHIRING",3))
+    #print(Solution().convert("PAYPALISHIRING",3))
+    print(Solution().myAtoi("   -4193 wit"))
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
