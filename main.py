@@ -47,6 +47,56 @@ class ListNode:
 #             self.sign = 1 if c == '+' else -1
 
 class Solution:
+
+    # def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    # def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:   #####19
+    #     # hT=ListNode(None)
+    #     # hT.next=head
+    #     hT = ListNode(0, head)
+    #     a_ptr, b_ptr = hT, hT
+    #     # for i in range(n):
+    #     for i in range(n + 1):
+    #         b_ptr = b_ptr.next
+    #     while b_ptr != None:
+    #         b_ptr = b_ptr.next
+    #         a_ptr = a_ptr.next
+    #     a_ptr.next = a_ptr.next.next
+    #     return hT.next
+
+    # def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+    #     res,n=[],len(nums)
+    #     if not nums or n<4:
+    #         return res
+    #     nums.sort()
+    #     # for a in range n-3:
+    #     for a in range (n-3):
+    #         # if nums[a-1]==nums[a]:
+    #         if nums[a-1]==nums[a] and a>0:   #?????????这个a>0什么用啊
+    #             continue
+    #             ##缩进
+    #         for b in range(a+1,n-2):
+    #             if b>a+1 and nums[b-1]==nums[b]:
+    #                 continue
+    #             c=b+1;d=n-1
+    #             while c<d:
+    #                 sum=nums[a]+nums[b]+nums[c]+nums[d]
+    #                 if sum==target:
+    #                     # res.append(nums[a],nums[b],nums[c],nums[d])
+    #                     res.append([nums[a],nums[b],nums[c],nums[d]])
+    #                     #注意缩进
+    #                     while c<d and nums[c]==nums[c+1]:
+    #                         c+=1
+    #                     while c<d and nums[d]==nums[d-1]:
+    #                         d-=1
+    #                     c+=1
+    #                     d-=1
+    #                 elif sum<target:
+    #                     c+=1
+    #                 else:
+    #                     d-=1
+    #     return res
+
+
     # def letterCombinations(self, digits: str) -> List[str]:
     #     res = []
     #     if not digits: return []
@@ -421,7 +471,7 @@ if __name__ == '__main__':
     # print(Solution().isSameTree(a1,a2))
     #print(Solution.convert("PAYPALISHIRING",3))
     #print(Solution().convert("PAYPALISHIRING",3))
-    print(Solution().letterCombinations("234"))
+    print(Solution().fourSum([2,2,2,2,2],8))
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
