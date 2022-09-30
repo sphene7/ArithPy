@@ -47,6 +47,123 @@ class ListNode:
 #             self.sign = 1 if c == '+' else -1
 
 class Solution:
+    # def strStr(self, haystack: str, needle: str) -> int:
+    #     def calShiftMat(st):
+    #         dic={}
+    #         for i in range(len(st)-1,-1,-1):
+    #             if not dic.get(st[i]):
+    #                 dic[st[i]]=len(st)-i
+    #         dic["ot"]=len(st)+1
+    #         return dic
+    #     if len(needle)>len(haystack):return -1
+    #     if needle==" ":return 0
+    #     dic=calShiftMat(needle)
+    #     idx=0
+    #     while idx+len(needle)<=len(haystack):
+    #         str_cut=haystack[idx:idx+len(needle)]
+    #         if str_cut==needle:
+    #             return idx
+    #         else:
+    #             if idx+len(needle)>=len(haystack):
+    #                 return -1
+    #             cur_c=haystack[idx+len(needle)]
+    #             if dic.get(cur_c):
+    #                 idx+=dic[cur_c]
+    #             else:
+    #                 idx+=dic["ot"]
+    #         return -1 if idx+len(needle)>=len(haystack) else idx
+
+
+    # def removeElement(self, nums: List[int], val: int) -> int:  #####27
+    #     a,b=0,0
+    #     while a<len(nums):
+    #         if nums[a]!=val:
+    #             nums[b]=nums[a]
+    #             b+=1
+    #         a+=1
+    #     return b
+
+
+    # def removeDuplicates(self, nums: List[int]) -> int:   #####26
+    #     n=len(nums);j=0
+    #     for i in range(n):
+    #         if nums[i]!=nums[j]:
+    #             j+=1
+    #             nums[j]=nums[i]
+    #     return j+1
+
+    # def swapPairs(self, head):
+    #     if not (head ):
+    #         return head
+    #     p=ListNode(-1)
+    #     cur,head,stack=head,p,[]
+    #     while cur and cur.next:
+    #         _,_=stack.append(cur),stack.append(cur.next)
+    #         cur=cur.next.next
+    #         p.next=stack.pop()
+    #         p.next.next=stack.pop()
+    #         p=p.next.next
+    #     if cur:  #前面的while只能在偶数里走，这个是判断他是不是奇数哒
+    #         p.next=cur
+    #     else:
+    #         p.next=None
+    #     return head.next
+
+
+    # def mergeKLists(self, lists: List[ListNode]) -> ListNode:    #####23
+    #     if not lists: return
+    #     n=len(lists)
+    #     return self.merge(lists,0,n-1)
+    # def merge(self,lists,left,right):
+    #     if left==right:
+    #         return lists[left]
+    #     mid=left+(right-left)//2
+    #     l1=self.merge(lists,left,mid)
+    #     l2=self.merge(lists,mid+1,right)
+    #     return self.mergeTlists(l1,l2)
+    # def mergeTlists(self,l1,l2):
+    #     if not l1:return l2
+    #     if not l2: return l1
+    #     if l1.val<=l2.val:
+    #         l1.next=self.mergeTlists(l1.next,l2)
+    #         return l1
+    #     else:
+    #         l2.next=self.mergeTlists(l2.next,l1)
+    #         return l2
+
+    # def generateParenthesis(self, n: int) -> List[str]:
+    #     res,cur_str=[],''
+    #     def dfs(cur_str,left,right,n):
+    #         if left ==n and right==n:
+    #             res.append(cur_str)
+    #         if left<right:    #右括号用太多啦
+    #             return
+    #         if left<n:
+    #             dfs(cur_str+'(',left+1,right,n)
+    #         if right<n:
+    #             dfs(cur_str+')',left,right+1,n)
+    #     dfs(cur_str,0,0,n)
+    #     return res
+
+
+    # def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+    #     if not l1: return l2  # 终止条件，直到两个链表都空
+    #     if not l2: return l1
+    #     if l1.val <= l2.val:  # 递归调用
+    #         l1.next = self.mergeTwoLists(l1.next, l2)
+    #         return l1
+    #     else:
+    #         l2.next = self.mergeTwoLists(l1, l2.next)
+    #         return l2
+
+    # def isValid(self, s: str) -> bool:     ######20
+    #     dic={'[':']','(':')','{':'}','?':'?'}
+    #     stack=['?']
+    #     for c in s:
+    #         if c in dic:
+    #             stack.append(c)
+    #         elif dic[stack.pop()]!=c: return False
+    #     return len(stack)==1
 
     # def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
     # def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:   #####19
