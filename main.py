@@ -47,28 +47,133 @@ class ListNode:
 #             self.sign = 1 if c == '+' else -1
 
 class Solution:
+    # def letterCombinations(self, digits: str) -> List[str]:
+    #     res = []
+    #     if not digits: return []
+    #     phone = {'2':['a','b','c'],
+    #              '3': ['d', 'e', 'f'],
+    #              '4': ['g', 'h', 'i'],
+    #              '5': ['j', 'k', 'l'],
+    #              '6': ['m', 'n', 'o'],
+    #              '7': ['p', 'q', 'r', 's'],
+    #              '8': ['t', 'u', 'v'],
+    #              '9': ['w', 'x', 'y', 'z']}
+    #     def backtrack(resT,next):  #resT存字符，next存下一个数字
+    #         if len(next)==0:
+    #             res.append(resT)
+    #         else:
+    #             for i in phone[next[0]]:     #i是字母哦
+    #                 backtrack(resT+i,next[1:])
+    #     backtrack('',digits)
+    #     return res
 
-    def isMatch(self, s: str, p: str) -> bool:    ######10
-        len_s=len(s);len_p=len(p)
-        #dp=[False*(len_p+1) for _ in range(len_s+1)]
-        dp=[[False]*(len_p+1) for _ in range(len_s+1)]
-        #为什么是+1呢？
-        dp[0][0]=True
-        for j in range(1,len_p+1):   #只是第一P的情况
-            if p[j-1]=='*':
-                dp[0][j]=dp[0][j-2]
-        for i in range(1,len_s+1):
-            for j in range (1,len_p+1):
-                if p[j-1] in {s[i-1],'.'}:
-                    #dp[i][j]=dp[i][j-2]
-                    dp[i][j]=dp[i-1][j-1]
-                elif p[j-1]=='*':       #这几行？？？？？
-                    if p[j-2] in {s[i-1],'.'}:
-                        dp[i][j]=dp[i][j-2]or dp[i-1][j]
-                        #dp[i][j]=dp[i][j-2] or dp
-                    else:
-                        dp[i][j]=dp[i][j-2]
-        return dp[len_s][len_p]
+    # def threeSum(self, nums: List[int]) -> List[List[int]]:    #16
+    #     n=len(nums)
+    #     res=[]
+    #     if (not nums or n<3):
+    #         return []
+    #     nums.sort()
+    #     #for i in range nums:
+    #     for i in range(n):
+    #         if nums[i]>0:
+    #             return res
+    #         if(i>0 and nums[i]==nums[i-1]):
+    #             continue
+    #         L=i+1;R=n-1
+    #         while L<R:
+    #             if(nums[i]+nums[L]+nums[R]==0):
+    #                 # res.append(nums[i],nums[L],nums[R])  是的，否则就是超出参数
+    #                 res.append([nums[i],nums[L],nums[R]])
+    #                 # while(nums[L]==nums[L+1])
+    #                 while(L<R and nums[L]==nums[L+1]):  #防一下多个并排加错
+    #                     L=L+1
+    #                 while(L<R and nums[R]==nums[R-1]):
+    #                     R=R-1
+    #                 L+=1;R-=1
+    #             ###你这个笨蛋准备不写elif
+    #             elif(nums[i]+nums[L]+nums[R]>0):
+    #                 R=R-1
+    #             else:
+    #                 L+=1
+    #
+    #         # return res
+    #     return res
+
+
+    # def longestCommonPrefix(self, s: List[str]) -> str:     ##########14
+    #     if not s:
+    #         return ""
+    #     res = s[0]     #第一个单词
+    #     i = 1
+    #     while i < len(s):   #总len(s)个单词
+    #         while s[i].find(res) :
+    #             res = res[0:len(res) - 1]
+    #         i += 1
+    #     return res
+
+
+    # def romanToInt(self,s:str)->int:   #######13 Roman To index
+    #     d = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, 'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500,
+    #          'CM': 900, 'M': 1000}
+    #     tempI=0;tempN=0
+    #     while tempI<=len(s)-1:
+    #         if s[tempI:tempI+2] in d:
+    #             #tempN=d.values(s[tempI:tempI+2])
+    #             #tempN=d.get(s[tempI:tempI+2])  #神TM等于....
+    #             tempN+=d.get(s[tempI:tempI+2])
+    #             tempI+=2
+    #         else:
+    #             tempN += d.get(s[tempI])
+    #             tempI += 1
+    #     return tempN
+
+    # def intToRoman(self, num: int) -> str:    #####12 Roman
+    #     nums = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    #     romans = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+    #     index =0
+    #     res=''
+    #     while index<=12:
+    #         while num>=nums[index]:
+    #             #res.appends
+    #             res+=romans[index]
+    #             num-=nums[index]
+    #         index+=1
+    #     return res
+
+    # def maxArea(self, height: List[int]) -> int:   #####11  Most Water
+    #     i,j,res,=0,len(height)-1,0    #数组..
+    #     while i<j:
+    #         if height[i]<height[j]:
+    #             # res=max(res,height[i+1]*(j-i))
+    #             res=max(res,height[i]*(j-i))
+    #             i+=1
+    #         else:
+    #             #res=max(res,height[j-1]*(j-i))
+    #             res=max(res,height[j]*(j-i))
+    #             j-=1
+    #     return res
+
+    # def isMatch(self, s: str, p: str) -> bool:    ######10
+    #     len_s=len(s);len_p=len(p)
+    #     #dp=[False*(len_p+1) for _ in range(len_s+1)]
+    #     dp=[[False]*(len_p+1) for _ in range(len_s+1)]
+    #     #为什么是+1呢？
+    #     dp[0][0]=True
+    #     for j in range(1,len_p+1):   #只是第一P的情况
+    #         if p[j-1]=='*':
+    #             dp[0][j]=dp[0][j-2]
+    #     for i in range(1,len_s+1):
+    #         for j in range (1,len_p+1):
+    #             if p[j-1] in {s[i-1],'.'}:
+    #                 #dp[i][j]=dp[i][j-2]
+    #                 dp[i][j]=dp[i-1][j-1]
+    #             elif p[j-1]=='*':       #这几行？？？？？
+    #                 if p[j-2] in {s[i-1],'.'}:
+    #                     dp[i][j]=dp[i][j-2]or dp[i-1][j]
+    #                     #dp[i][j]=dp[i][j-2] or dp
+    #                 else:
+    #                     dp[i][j]=dp[i][j-2]
+    #     return dp[len_s][len_p]
 
                     #if p[j-2]=='.'
 
@@ -316,7 +421,7 @@ if __name__ == '__main__':
     # print(Solution().isSameTree(a1,a2))
     #print(Solution.convert("PAYPALISHIRING",3))
     #print(Solution().convert("PAYPALISHIRING",3))
-    print(Solution().myAtoi("   -4193 wit"))
+    print(Solution().letterCombinations("234"))
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
