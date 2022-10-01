@@ -45,9 +45,191 @@ class ListNode:
 #             self.ans = min(self.ans, INT_MAX) if self.sign == 1 else min(self.ans, -INT_MIN)
 #         elif self.state == 'signed':
 #             self.sign = 1 if c == '+' else -1
+from typing import List
+
 
 class Solution:
-    # def strStr(self, haystack: str, needle: str) -> int:
+    # def permuteUnique(self, nums: List[int]) -> List[List[int]]: #####47 ????
+    #     def dfs(nums,size,depth,path,used,res):
+    #         if depth==size:
+    #             # res.append(path.copy)
+    #             res.append(path.copy())
+    #             return
+    #         for i in range(size):
+    #             if not used[i]:
+    #                 if i>0 and nums[i]==nums[i-1] and not used[i-1]:
+    #                     continue
+    #                 used[i]==True
+    #                 path.append(nums[i])
+    #                 dfs(nums,size,depth+1,path,used,res)
+    #                 used[i]=False
+    #                 path.pop
+    #     size=len(nums)
+    #     if size==0: return[]
+    #     nums.sort()
+    #     used=[False]*len(nums)
+    #     res=[]
+    #     dfs(nums,size,0,[],used,res)
+    #     return res
+
+    
+    # def isMatch(self, s: str, p: str) -> bool:
+    #     if set(p) == {"*"}: return True
+    #     zong,heng=len(p)+1,len(s)+1
+    #     table=[[False]*heng for i in range(zong)]
+    #     table[0][0]=True
+    #     if p.startswith("*"):
+    #         table[1]=[True]*heng
+    #     for m in range(1,zong):
+    #         path=False
+    #         for n in range(1,heng):
+    #             if p[m-1]=="*":
+    #                 if table[m-1][0]==True:
+    #                     table[m]=[True]*heng
+    #                 if table[m-1][n]:
+    #                     path=True
+    #                 if path:
+    #                     table[m][n]=True
+    #             elif p[m-1]=="?" or p[m-1]==s[n-1]:
+    #                 table[m][n]=table[m-1][n-1]
+    #     return table[zong-1][heng-1]
+
+
+
+
+
+
+#     def firstMissingPositive(self, nums: List[int]) -> int:  ######41  原地哈希
+#         size=len(nums)
+#         for i in range(size):
+#             #while 1<=nums[i]<=size and nums[i]!=nums[i]-1:  #在数组长度范围内而且去重
+#            ###注意了哈，num[i]-1 是给当前位置数字找正确的下标
+#             while 1<=nums[i]<=size and nums[i]!=nums[nums[i]-1]:  #在数组长度范围内而且去重
+#                 self.__swap(nums,i,nums[i]-1)  #
+#         for i in range(size):
+#             if i+1!=nums[i]:
+#                 return i+1
+#         return size+1
+#     def __swap(self,nums,index1,index2):
+#         nums[index1],nums[index2]=nums[index2],nums[index1]
+
+    # def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:  ######40
+    #     def dfs(begin,path,residue):
+    #         if residue==0:
+    #             res.append(path[:]);return
+    #         for index in range(begin,size):
+    #             if candidates[index]>residue: break
+    #             if index>begin and candidates[index-1]==candidates[index]:
+    #                 continue  #和上一位一样了
+    #             path.append(candidates[index])
+    #             dfs(index+1,path,residue-candidates[index])
+    #             path.pop()
+    #     size=len(candidates)
+    #     if size==0:return []
+    #     candidates.sort()
+    #     res=[]
+    #     dfs(0,[],target)
+    #     return res
+
+    # def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:   #####39
+    #
+    #     def dfs(candidates, begin, size, path, res, target):
+    #         if target == 0: res.append(path);return
+    #         for index in range(begin, size):
+    #             residue = target - candidates[index]
+    #             if residue < 0: break
+    #
+    #             dfs(candidates, index, size, path + [candidates[index]], res, residue)
+    #     size = len(candidates)
+    #     if size == 0:
+    #         return []
+    #     candidates.sort()
+    #     path, res = [], []
+    #     dfs(candidates, 0, size, path, res, target)
+    #     return res
+
+
+    # def countAndSay(self, n: int) -> str:   ######38
+    #     res="1"
+    #     for i in range(n-1):
+    #         curr,p2,p1="",0,0
+    #         while p2<len(res):
+    #             while p2<len(res) and res[p2]==res[p1]:
+    #                 p2+=1
+    #             curr+=str(p2-p1)+res[p1]
+    #             p1=p2
+    #         res=curr
+    #     return res
+
+
+
+    # def search(self, nums: List[int], target: int) -> int:
+    #     if not nums : return -1
+    #     l,r=0,len(nums)-1
+    #     while l<=r:
+    #         mid=(l+r)//2
+    #         if nums[mid]==target:
+    #             return mid
+    #         if nums[0]<=nums[mid]:   ##中轴线偏右
+    #             if nums[0]<=target<=nums[mid]:
+    #                 r=mid-1
+    #             else:
+    #                 l=mid+1
+    #         else:    ##中轴线偏左  （卧槽我想去北京转转啊！）
+    #             if nums[mid]<target<=nums[r]:
+    #                 l=mid+1
+    #             else:
+    #                 r=mid-1
+    #     return -1
+
+
+    # def nextPermutation(self, nums: List[int]) -> None:  #####  31 最小增加的排列
+    #     n=len(nums)
+    #     if n<2: return nums
+    #     i=n-1
+    #     while nums[i]<=nums[i-1]and i>0:
+    #         i-=1
+    #     if i==0 and nums[i]==max(nums):
+    #         return nums.reverse()
+    #     else:
+    #         j = n - 1
+    #         while j > i - 1 and nums[j] <= nums[i - 1]:
+    #             j -= 1
+    #         nums[i - 1], nums[j] = nums[j], nums[i - 1]
+    #         re=nums[i:]
+    #         for k in range(len(re)):    #?????
+    #             nums[n-1-k]=re[k]
+    #         return  nums
+
+
+
+
+    # def divide(self, dividend: int, divisor: int) -> int:    #####29  ???
+    #     INT_MIN,INT_MAX=-2**31,2**31-1
+    #     if dividend==INT_MIN:
+    #         if divisor==1  :return INT_MIN
+    #         if divisor==-1: return INT_MAX
+    #     if divisor==INT_MIN: return 1 if dividend==INT_MIN else 0
+    #     if dividend==0:return 0
+    #     rev=False
+    #     if dividend>0:
+    #         dividend=-dividend
+    #         rev=not rev
+    #     if divisor>0:
+    #         divisor=-divisor
+    #         rev=not rev
+    #     can=[divisor]
+    #     while can[-1]>=dividend-can[-1]:
+    #         can.append(can[-1]+can[-1])
+    #     ans=0
+    #     # for i in range(len[can]-1,-1,-1):
+    #     for i in range(len(can)-1,-1,-1):
+    #         if can[i]>=dividend:
+    #             ans+=(1<<i)
+    #             dividend-=can[i]
+    #     return -ans if rev else ans
+
+    # def strStr(self, haystack: str, needle: str) -> int:        #######28    ?????
     #     def calShiftMat(st):
     #         dic={}
     #         for i in range(len(st)-1,-1,-1):
@@ -588,7 +770,7 @@ if __name__ == '__main__':
     # print(Solution().isSameTree(a1,a2))
     #print(Solution.convert("PAYPALISHIRING",3))
     #print(Solution().convert("PAYPALISHIRING",3))
-    print(Solution().fourSum([2,2,2,2,2],8))
+    print(Solution().countAndSay(5))
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
