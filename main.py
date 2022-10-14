@@ -1,4 +1,6 @@
+import collections
 from collections import defaultdict
+# from distutils.command.install import key
 from typing import List, Optional
 
 INT_MAX=2**32-1
@@ -49,6 +51,33 @@ from typing import List
 
 
 class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        #怎么TMD会有这么易读的代码啊，呜呜呜,谢谢你，国外的大佬
+        if root == None:return True
+        else: return self.isMirror(root.left,root.right)
+        # else: return isMirror()
+        # if root==Null:
+    # def isMirror(self,t1,t2):
+    def isMirror(self,left,right):
+        if left==None and right ==None:return True
+        elif left ==None or right==None:return False
+        if left.val==right.val:
+            outPair=self.isMirror(left.left, right.right)
+            inPair=self.isMirror(left.right,right.left)
+            return outPair and inPair
+        else:
+            return False
+
+
+    # def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    #     mp = collections.defaultdict(list)
+    #
+    #     for st in strs:
+    #         key = "".join(sorted(st))
+    #         mp[key].append(st)
+    #
+    #     return list(mp.values())
+
     # def permuteUnique(self, nums: List[int]) -> List[List[int]]: #####47 ????
     #     def dfs(nums,size,depth,path,used,res):
     #         if depth==size:
@@ -72,7 +101,7 @@ class Solution:
     #     dfs(nums,size,0,[],used,res)
     #     return res
 
-    
+
     # def isMatch(self, s: str, p: str) -> bool:
     #     if set(p) == {"*"}: return True
     #     zong,heng=len(p)+1,len(s)+1
