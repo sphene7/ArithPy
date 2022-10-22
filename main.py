@@ -51,6 +51,46 @@ from typing import List
 
 
 class Solution:
+
+
+
+
+    def zigzagLevelOrder(self,root):
+        if not root:return []
+        #
+        # queue=deque[root]
+        queue= collections.deque([root])
+        ans,flag=[],1;level=[root]
+        while queue:
+            level=[]
+            for i in range(len(queue)):
+                n=queue.popleft()
+                level.append(n.val)
+                if n.left:
+                    queue.append(n.left)
+                if n.right:
+                    queue.append(n.right)
+            ans.append(level[::-1])
+            # flag=-1
+            flag*=-1
+        return ans
+    def levelOrder(self,root):
+        if root==None:return []
+        res,level=[],[root]
+        while root and level:
+            currentNode,nextLevel=[],[]
+            for node in level:
+                currentNode.append(node.val)
+                if node.left:
+                    nextLevel.append(node.left)
+                if node.right:
+                    nextLevel.append(node.right)
+            res.append(currentNode)
+            level=nextLevel
+        return res
+
+
+
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         #怎么TMD会有这么易读的代码啊，呜呜呜,谢谢你，国外的大佬
         if root == None:return True
