@@ -1,0 +1,30 @@
+缓冲池P,20个缓冲区，
+一个缓冲区为单位
+记录型信号量    wait和signal就是PV
+Semaphore mutex=1;  //互斥
+Semaphore empty=20;	//20缓冲区可用
+Smaphore full=0; 	//满缓冲区
+Int in ,out=0;item p[20];	//缓冲区出入口
+Void Producer (){	 //生产者
+While( true){
+Producer an item in nextp;	生产一个产品
+Wait(empty);		申请空缓冲区（=0时阻塞操作
+Wait(mutex);		申请互斥访问
+P[in]=nextp;		小于零执行这个，阻塞等待
+In =(in+1)mod20;	放入缓冲区入口
+Signal(mutex);	释放互斥访问
+Signal(full);	有现成等待的化full+1
+}
+}
+
+Void Consumer()
+{
+While (true){
+Wait(full);
+Wait(mutex);
+Nectc=p[out];
+Out=(out+1)%mod 20;
+Signal(mutex)；
+Signal(empty)；
+}
+}
